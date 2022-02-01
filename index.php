@@ -30,7 +30,7 @@ $result = $conn->query($sql);
 	<h2>list of the article</h2>
 	<h3>click article to see the description</h3>
 <?php foreach ($result as $data) { ?>
-<a href="article.php?id= <?php echo $data['id']?>">article <?php echo $data['id']?> </a><br>
+<a href="article.php?id= <?php echo $data['id']?>"> <?php echo $data['id']?>    <?php echo $data['article']?> <?php echo $data['short_description']?> </a><br>
 
 <?php } ?>
 </body>

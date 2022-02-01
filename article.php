@@ -12,7 +12,12 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT * FROM news where id = " . $_GET['id']  ;
+$id = $_GET['id'];
+$id = stripslashes ($id);
+$id = mysqli_real_escape_string($conn, $id);
+$id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+
+$sql = "SELECT * FROM news where id = " . $id  ;
 $result = $conn->query($sql);
 
 if(!$result){

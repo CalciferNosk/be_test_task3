@@ -16,16 +16,21 @@ if ($conn->connect_error) {
 
 if(isset($_POST['search'])){
 
-		$id = $_POST['id'];
-
+		
+	$id = $_POST['id'];
+	$id = stripslashes ($id);
+	$id = mysqli_real_escape_string($conn, $id);
+	$id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 	$sql = "SELECT * FROM news where id = " . $id  ;
 	$result = $conn->query($sql);
+{	$row = mysqli_fetch_assoc($result);
+	if ($row==0) {
 
-	if($result != $id){
-		header('location:error.php');
-	};
+	header("location:error.php");
+
+}
 };
-
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,11 +39,6 @@ if(isset($_POST['search'])){
 </head>
 <body>
 	<?php foreach ($result as $data) { 
-
-		if($result == ''){
-		header('location:error.php');
-	};
-
 		?>
 		<h3>article name:<?php echo $data['article']; ?></h3>
 		<h3>Description: <?php echo $data['short_description']; ?> </h3>
